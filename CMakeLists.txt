@@ -72,4 +72,4 @@ if(MSVC)
     target_compile_options(${PROJECT_NAME} PRIVATE /bigobj /utf-8 /wd4201)
 endif()
 
-setup_geode_mod(${PROJECT_NAME})
+setup_geode_mod(${PROJECT_NAME} NO_PRECOMPILED_HEADER)
