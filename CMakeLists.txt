@@ -51,11 +51,16 @@ set_source_files_properties(
 
 target_link_libraries(${PROJECT_NAME}
     imgui-cocos
-    safetyhook
     zlibstatic
     libGDR
-    ws2_32
 )
+
+if(NOT ANDROID)
+    target_link_libraries(${PROJECT_NAME}
+        safetyhook
+        ws2_32
+    )
+endif()
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE
     MOD_VERSION="2.0.0-beta.2"
