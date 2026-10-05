@@ -235,6 +235,7 @@ void Client::setEnabled(bool on) {
     if (!on) stop();
 }
 
+#if defined(_WIN32)
 void Client::stop() {
     if (m_process) {
         sendFrame(Message::Bye, nullptr, 0);
@@ -381,6 +382,28 @@ bool Client::readFrame(Message& type, std::vector<uint8_t>& payload, unsigned ti
     return true;
 }
 
+#else
+
+void Client::stop() {
+    m_process = nullptr;
+    m_toApp = nullptr;
+    m_fromApp = nullptr;
+    m_levelObjects = -1;
+}
+
+bool Client::start() {
+    return false;
+}
+
+bool Client::sendFrame(Message, const void*, size_t) {
+    return false;
+}
+
+bool Client::readFrame(Message&, std::vector<uint8_t>&, unsigned) {
+    return false;
+}
+
+#endif
 void Client::sendLevel(GJBaseGameLayer* pl, float fromX, float toX, uint64_t tick, uint32_t horizon) {
     if (!pl || !pl->m_objects) return;
     if (!m_enabled || m_broken) return;  // nothing to send it to (and no scan of every object for nothing)
