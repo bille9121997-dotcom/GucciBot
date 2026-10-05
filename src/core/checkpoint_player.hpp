@@ -6,7 +6,10 @@ namespace gucci {
         void apply(PlayerObject* p);
         static SavedPlayerCheckpoint create(PlayerObject* p);
         // Silicate's in-place form, which Absense's trajectory uses.
-        void capture(PlayerObject* p) { *this = create(p); }
+        void capture(PlayerObject* p) {
+    auto checkpoint = create(p);
+    *this = static_cast<SavedPlayerCheckpoint const&>(checkpoint);
+        }
 
         cocos2d::CCPoint m_ccPosition{};
         float m_ccRotation = 0.f;
