@@ -39,8 +39,6 @@ namespace slc {
     using ActionType = gucci::gb::ActionType;
 }
 
-using gucci::SavedPlayerCheckpoint;
-
 // His SavedCheckpoint and our SavedCheckpointState are the same idea with the
 // same two player halves; only the frame field is spelled differently
 // (m_frame vs m_frameOffset), which is renamed at the call sites.
