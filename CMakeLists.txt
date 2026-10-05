@@ -24,7 +24,7 @@ add_subdirectory($ENV{GEODE_SDK} $ENV{GEODE_SDK}/build)
 
 set(IMGUI_VERSION "v1.91.4" CACHE STRING "Pin imgui version" FORCE)
 CPMAddPackage("gh:matcool/gd-imgui-cocos#97643336209b760a3d59d83b770546b1cfef4e7d")
-CPMAddPackage("gh:cursey/safetyhook#main" OPTIONS "SAFETYHOOK_DISABLE_UNWINDING ON")
+CPMAddPackage("gh:cursey/safetyhook#main"
 CPMAddPackage("gh:zyantific/zydis#bffbb61")
 CPMAddPackage(
     NAME ZLIB
