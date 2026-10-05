@@ -1,9 +1,10 @@
 #ifndef FFMPEG_HPP
 #define FFMPEG_HPP
-
 #pragma once
 
+#if defined(_WIN32)
 #include <Windows.h>
+#endif
 
 #include <Geode/Geode.hpp>
 #include <string>
@@ -122,7 +123,7 @@ namespace gucci {
                                                           "sws_getContext",
                                                           "sws_scale",
                                                           "sws_freeContext"};
-
+#if defined(_WIN32)
     inline void* loadFunction(HMODULE* modules, size_t moduleSize, const char* name) {
         void* fn = 0;
 
@@ -198,7 +199,13 @@ namespace gucci {
 
         return true;
     }
+#else
 
+inline bool loadFFmpegFunctions(void*) {
+    return false;
+}
+
+#endif
 } // namespace gucci
 
 #endif
