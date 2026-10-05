@@ -2,10 +2,12 @@
 // and windows.h pulls in the 1.1 winsock, which then collides with winsock2
 // in ws2tcpip.h. Nothing subtle to debug here -- it is purely include order,
 // so these two lines stay at the top of the file.
+#include "mcp_server.hpp"
+
+#if defined(_WIN32)
 #include <winsock2.h>
 #include <ws2tcpip.h>
-
-#include "mcp_server.hpp"
+#endif
 
 #include <Geode/Geode.hpp>
 
@@ -19,6 +21,7 @@ using namespace geode::prelude;
 
 namespace gucci::mcp {
 
+#if defined(_WIN32)
     namespace {
         std::ofstream g_mcpLog;
     }
@@ -356,4 +359,24 @@ namespace gucci::mcp {
         return rpcError(id, -32601, "unknown method").dump();
     }
 
+#else
+
+bool Server::start(int) {
+    return false;
+}
+
+void Server::stop() {
+    m_running = false;
+}
+
+void Server::pump() {
+}
+
+void Server::addTool(Tool) {
+}
+
+void mcpFileLog(std::string const&) {
+}
+
+#endif
 } // namespace gucci::mcp
