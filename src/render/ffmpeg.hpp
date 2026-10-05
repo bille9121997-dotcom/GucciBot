@@ -3,8 +3,6 @@
 
 #pragma once
 
-#if defined(_WIN32)
-
 #include <Windows.h>
 
 #include <Geode/Geode.hpp>
